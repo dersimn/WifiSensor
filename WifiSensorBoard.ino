@@ -1,4 +1,5 @@
 #include "default_config.h"
+#include "default_wifi.h"
 
 // --------------------------------------------------------
 
