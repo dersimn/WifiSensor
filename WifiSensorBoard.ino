@@ -24,10 +24,12 @@ void setup() {
   setup_wifi();
   setup_mqtt();
   setup_uptime();
+  setup_sensor_dht();
 }
 
 void loop() {
   loop_mqtt();
+  loop_sensor_dht();
 
   threadControl.run();
 }
