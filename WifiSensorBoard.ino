@@ -8,6 +8,8 @@
 #include <Thread.h>
 #include <ThreadController.h>
 
+#include <DallasTemperature.h>  // Throws compiler error if not specified here
+
 // --------------------------------------------------------
 
 ThreadController threadControl = ThreadController();
@@ -25,6 +27,7 @@ void setup() {
   setup_mqtt();
   setup_uptime();
   setup_sensor_dht();
+  setup_dallas();
 }
 
 void loop() {
