@@ -1,9 +1,32 @@
-void setup() {
-  // put your setup code here, to run once:
+#include "default_config.h"
 
+// --------------------------------------------------------
+
+#include <ESP8266WiFi.h>        // Wifi Library
+#include <PubSubClient.h>       // MQTT Library
+#include <Thread.h>
+#include <ThreadController.h>
+
+// --------------------------------------------------------
+
+ThreadController threadControl = ThreadController();
+
+WiFiClient espClient;
+PubSubClient mqttClient(espClient);
+
+// --------------------------------------------------------
+
+void setup() {
+  Serial.begin(115200);
+  while (!Serial); // wait for serial port initialization
+
+  setup_wifi();
+  setup_mqtt();
+  setup_uptime();
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  loop_mqtt();
 
+  threadControl.run();
 }
