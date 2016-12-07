@@ -29,10 +29,13 @@ void mqtt_reconnect() {
 }
 
 void mqtt_subscribe() {
-  mqttClient.subscribe("/debug/input");
+  mqttClient.subscribe(LED_SOLID_TOPIC);
+  mqttClient.subscribe(LED_ANIMATION_TOPIC);
 }
 
-void mqtt_callback(char* topic, byte* payload, unsigned int length) {
+void mqtt_callback(char* topic_char, byte* payload, unsigned int length) {
+  String topic = String(topic_char);
+  
   Serial.print("Message arrived [");
   Serial.print(topic);
   Serial.print("] ");
@@ -40,6 +43,12 @@ void mqtt_callback(char* topic, byte* payload, unsigned int length) {
   for (int i = 0; i < length; i++) {
     inputString += (char)payload[i];
   }
-  Serial.println(inputString);  
+  Serial.println(inputString);
+
+  if (topic == LED_SOLID_TOPIC ||
+      topic == LED_ANIMATION_TOPIC)
+  {
+    led_input(topic, inputString);
+  }
 }
 

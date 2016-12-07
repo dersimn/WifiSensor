@@ -10,3 +10,11 @@ char* mqtt_uptime_topic = "/debug/fastled/uptime";
 #define PULLUP_PIN 14
 #define TEMPERATURE_PRECISION 9
 #define MAX_DEVICES 5
+
+#define NUM_LEDS 68
+//#define NUM_LEDS 74
+#define FRAMES_PER_SECOND  60
+
+#define LED_STATE_TOPIC "/debug/led/state"
+#define LED_SOLID_TOPIC "/debug/led/input"
+#define LED_ANIMATION_TOPIC "/debug/led/animation"

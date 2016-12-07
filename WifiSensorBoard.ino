@@ -1,5 +1,6 @@
 #include "default_config.h"
 #include "default_wifi.h"
+#include "handy_functions.h"
 
 // --------------------------------------------------------
 
@@ -28,6 +29,7 @@ void setup() {
   setup_uptime();
   setup_sensor_dht();
   setup_dallas();
+  setup_fastled();
 }
 
 void loop() {
