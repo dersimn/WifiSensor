@@ -18,6 +18,7 @@ void setup_fastled() {
   threadControl.add(&led_show);
 
   led_animation.enabled = false;
+  led_animation.setInterval(20);
   led_animation.onRun(led_animation_func);
   threadControl.add(&led_animation); 
 }
@@ -82,11 +83,28 @@ void led_solid(String inputString) {
   }
   //Serial.print("brightness = ");Serial.println(brightness);
   Serial.println("conversion");
-  fill_solid( leds, NUM_LEDS, CHSV( hue, saturation, brightness));  
+  fill_solid( leds, NUM_LEDS, CHSV( hue, saturation, brightness));
+
+  String state = String(hue / 255.0 * 360.0);
+  state += ",";
+  state += String(saturation / 255.0 * 100.0);
+  state += ",";
+  state += String(brightness / 255.0 * 100.0);
+  char msg[50];
+  state.toCharArray(msg, 50);
+
+  mqttClient.publish(LED_STATE_TOPIC, msg);
 }
 void led_animation_msg(String inputString) {
-  led_animation.setInterval(20);
-  led_animation.enabled = true;
+  if (inputString == "sinelon") {
+    led_animation.enabled = true;
+    mqttClient.publish(LED_STATE_TOPIC, "sinelon");
+  }
+  if (inputString == "OFF") {
+    led_animation.enabled = false;
+    fill_solid( leds, NUM_LEDS, CRGB::Black);
+    mqttClient.publish(LED_STATE_TOPIC, "OFF");
+  }
 }
 
 void sinelon() {
