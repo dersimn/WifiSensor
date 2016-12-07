@@ -11,8 +11,6 @@ DeviceAddress devices[MAX_DEVICES];
 String devices_str[MAX_DEVICES];
 uint8_t device_count;
 
-char msg[50];
-
 void setup_dallas() {
   Serial.println("Detecting Dallas Temperature ICs");
   sensors.begin();
@@ -69,6 +67,7 @@ void measure_func() {
   outputThread.setRunOnce(2000);
 }
 void output_func() {
+  char msg[50];
   // print the device information
   for (uint8_t i = 0; i < device_count; i++) {
     float tempC = sensors.getTempC(devices[i]);
