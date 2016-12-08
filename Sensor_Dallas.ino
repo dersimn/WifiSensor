@@ -78,11 +78,7 @@ void output_func() {
     topic_str += devices_str[i];
     msg_str = String(tempC, 2);
     
-    char topic[50], msg[50];
-    topic_str.toCharArray(topic, 50);
-    msg_str.toCharArray(msg, 50);
-    
-    mqttClient.publish(topic, msg);
+    mqtt_publish(topic_str, msg_str);
   }
 }
 
