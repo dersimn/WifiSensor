@@ -11,6 +11,10 @@ uint8_t hue = 0;
 uint8_t saturation = 0;
 uint8_t brightness = 255;
 
+uint8_t currentPatternNumber = 0;
+typedef void (*SimplePatternList[])();
+SimplePatternList patterns = { sinelon, rainbow, confetti };
+
 void setup_fastled() {
   // this resets all the neopixels to an off state
   strip.Begin();
@@ -42,7 +46,7 @@ void led_show_func() {
 
 void led_animation_func() {
   baseHue++;
-  sinelon();
+  patterns[currentPatternNumber]();
 }
 
 void led_input(String topic, String inputString) {
@@ -133,8 +137,17 @@ void led_off() {
 
 void led_animation_msg(String inputString) {
   if (inputString == "sinelon") {
+    currentPatternNumber = 0;
     led_animation.enabled = true;
     mqttClient.publish(LED_STATE_TOPIC, "sinelon");
+  } else if (inputString == "rainbow") {
+    currentPatternNumber = 1;
+    led_animation.enabled = true;
+    mqttClient.publish(LED_STATE_TOPIC, "rainbow");
+  } else if (inputString == "confetti") {
+    currentPatternNumber = 2;
+    led_animation.enabled = true;
+    mqttClient.publish(LED_STATE_TOPIC, "confetti");
   }
 }
 
@@ -143,5 +156,14 @@ void sinelon() {
   fadeToBlackBy( leds, NUM_LEDS, 20);
   int pos = beatsin16(13,0,NUM_LEDS-1);
   leds[pos] += CHSV( baseHue, 255, 192);
+}
+void confetti() {
+  // random colored speckles that blink in and fade smoothly
+  fadeToBlackBy( leds, NUM_LEDS, 10);
+  int pos = random16(NUM_LEDS);
+  leds[pos] += CHSV( baseHue + random8(64), 255, 255);
+}
+void rainbow() {
+  fill_rainbow( leds, NUM_LEDS, baseHue);
 }
 
