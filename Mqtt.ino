@@ -52,3 +52,13 @@ void mqtt_callback(char* topic_char, byte* payload, unsigned int length) {
   }
 }
 
+void mqtt_publish(String topic, String message) {
+  char topic_char[100];
+  char msg_char[500];
+
+  topic.toCharArray(topic_char, 100);
+  message.toCharArray(msg_char, 500);
+  
+  mqttClient.publish(topic_char, msg_char);    
+}
+
