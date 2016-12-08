@@ -5,6 +5,7 @@ NeoPixelBus<NeoGrbFeature, NeoEsp8266Dma800KbpsMethod> strip(NUM_LEDS);
 CRGB leds[NUM_LEDS];
 Thread led_show = Thread();
 Thread led_animation = Thread();
+Thread led_base_hue = Thread();
 
 uint8_t baseHue = 0;
 uint8_t hue = 0;
@@ -28,6 +29,11 @@ void setup_fastled() {
   led_animation.setInterval(20);
   led_animation.onRun(led_animation_func);
   threadControl.add(&led_animation); 
+
+  led_base_hue.enabled = false;
+  led_base_hue.setInterval(20);
+  led_base_hue.onRun(led_base_hue_func);
+  threadControl.add(&led_base_hue); 
 }
 
 void loop_fastled() {
@@ -45,8 +51,10 @@ void led_show_func() {
 }
 
 void led_animation_func() {
-  baseHue++;
   patterns[currentPatternNumber]();
+}
+void led_base_hue_func() {
+  baseHue++;
 }
 
 void led_input(String topic, String inputString) {
@@ -122,6 +130,7 @@ void postNewState() {
 
 void led_fillSolidColor() {
   led_animation.enabled = false;
+  led_base_hue.enabled = false;
   fill_solid( leds, NUM_LEDS, CHSV( hue, saturation, brightness));
 }
 void led_on() {
@@ -138,15 +147,33 @@ void led_off() {
 void led_animation_msg(String inputString) {
   if (inputString == "sinelon") {
     currentPatternNumber = 0;
+
+    led_animation.setInterval(20);
+    led_base_hue.setInterval(10);
+    
     led_animation.enabled = true;
+    led_base_hue.enabled = true;
+    
     mqttClient.publish(LED_STATE_TOPIC, "sinelon");
   } else if (inputString == "rainbow") {
     currentPatternNumber = 1;
+
+    led_animation.setInterval(20);
+    led_base_hue.setInterval(20);
+    
     led_animation.enabled = true;
+    led_base_hue.enabled = true;
+    
     mqttClient.publish(LED_STATE_TOPIC, "rainbow");
   } else if (inputString == "confetti") {
     currentPatternNumber = 2;
+    
+    led_animation.setInterval(10);
+    led_base_hue.setInterval(50);
+    
     led_animation.enabled = true;
+    led_base_hue.enabled = true;
+
     mqttClient.publish(LED_STATE_TOPIC, "confetti");
   }
 }
