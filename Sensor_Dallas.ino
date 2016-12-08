@@ -52,7 +52,7 @@ void setup_dallas() {
   sensors.setWaitForConversion(false);
 
   meassureThread.onRun(measure_func);
-  meassureThread.setInterval(10000);
+  meassureThread.setInterval(DALLAS_INTERVAL);
   threadControl.add(&meassureThread);
 
   outputThread.onRun(output_func);
