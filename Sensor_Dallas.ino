@@ -74,7 +74,7 @@ void output_func() {
     Serial.print("Device ");Serial.print(devices_str[i]);Serial.print(" has ");Serial.print(tempC);Serial.println(" *C");
   
     String topic_str, msg_str;
-    topic_str = String("/temperature/"); 
+    topic_str = String(DALLAS_BASETOPIC); 
     topic_str += devices_str[i];
     msg_str = String(tempC, 2);
     

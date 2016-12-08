@@ -10,6 +10,8 @@ char* mqtt_uptime_topic = "/debug/fastled/uptime";
 #define PULLUP_PIN 14
 #define TEMPERATURE_PRECISION 9
 #define MAX_DEVICES 5
+#define DALLAS_BASETOPIC "/temperature/"
+#define DALLAS_INTERVAL 10000
 
 #define NUM_LEDS 68
 //#define NUM_LEDS 74
