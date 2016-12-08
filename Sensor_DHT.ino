@@ -16,6 +16,9 @@ void loop_sensor_dht() {
     Serial.print( " deg. C, H = " );
     Serial.print( humidity, 1 );
     Serial.println( "%" );
+
+    mqtt_publish(DHT_TEMPERATURE_TOPIC, String(temperature, 1));
+    mqtt_publish(DHT_HUMIDITY_TOPIC, String(humidity, 1));
   }  
 }
 
