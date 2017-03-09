@@ -8,24 +8,21 @@ void setup_mosfetLED() {
 void mosfetLED_input(String topic, String inputString) {
   if (inputString == "ON") {
     mosfetLED_on();
+    mosfetLED_setOutput();
   } else if (inputString == "OFF") {
     mosfetLED_off();
+    mosfetLED_setOutput();
   } else {
     mosfetLED_solid(inputString);
+    mosfetLED_setOutput();
   }
 }
 
 void mosfetLED_on() {
   mosfetLED_brightness = 255;
-  analogWrite(MOSFETLED_PIN, 0);
-  digitalWrite(MOSFETLED_PIN, HIGH);
-  mosfetLED_postNewState();
 }
 void mosfetLED_off() {
   mosfetLED_brightness = 0;
-  analogWrite(MOSFETLED_PIN, 0);
-  digitalWrite(MOSFETLED_PIN, LOW);
-  mosfetLED_postNewState();
 }
 
 void mosfetLED_postNewState() {
@@ -51,8 +48,20 @@ void mosfetLED_solid(String inputString) {
   
   //TODO: check values
   mosfetLED_brightness = bri_tmp;
+}
+
+void mosfetLED_setOutput() {
+  if (mosfetLED_brightness < 5) { 
+    analogWrite(MOSFETLED_PIN, 0);
+    digitalWrite(MOSFETLED_PIN, LOW);
+  } else if (mosfetLED_brightness > 250) { 
+    analogWrite(MOSFETLED_PIN, 0);
+    digitalWrite(MOSFETLED_PIN, HIGH);
+  } else {
+    analogWrite(MOSFETLED_PIN, mosfetLED_brightness);
+  }
 
   // Output
-  analogWrite(MOSFETLED_PIN, mosfetLED_brightness);
   mosfetLED_postNewState();
 }
+
