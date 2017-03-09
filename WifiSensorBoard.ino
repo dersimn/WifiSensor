@@ -30,6 +30,7 @@ void setup() {
   setup_sensor_dht();
   setup_dallas();
   setup_fastled();
+  setup_mosfetLED();
 }
 
 void loop() {

@@ -31,6 +31,7 @@ void mqtt_reconnect() {
 void mqtt_subscribe() {
   mqttClient.subscribe(LED_SOLID_TOPIC);
   mqttClient.subscribe(LED_ANIMATION_TOPIC);
+  mqttClient.subscribe(MOSFETLED_COMMAND_TOPIC);
 }
 
 void mqtt_callback(char* topic_char, byte* payload, unsigned int length) {
@@ -49,6 +50,10 @@ void mqtt_callback(char* topic_char, byte* payload, unsigned int length) {
       topic == LED_ANIMATION_TOPIC)
   {
     led_input(topic, inputString);
+  }
+
+  if (topic == MOSFETLED_COMMAND_TOPIC) {
+    mosfetLED_input(topic, inputString);
   }
 }
 

@@ -24,3 +24,7 @@ char* mqtt_uptime_topic = "/devices/espD/uptime";
 #define LED_SOLID_TOPIC "/devices/espD/led/command/solid"
 #define LED_ANIMATION_TOPIC "/devices/espD/led/command/animation"
 
+#define MOSFETLED_PIN 14
+#define MOSFETLED_STATE_TOPIC "/devices/espD/led0/state"
+#define MOSFETLED_COMMAND_TOPIC "/devices/espD/led0/command"
+
