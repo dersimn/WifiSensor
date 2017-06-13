@@ -2,7 +2,7 @@ uint8_t mosfetLED_brightness = 255;
 
 void setup_mosfetLED() {
   pinMode(MOSFETLED_PIN, OUTPUT);
-  analogWrite(MOSFETLED_PIN, 0);
+  digitalWrite(MOSFETLED_PIN, LOW);
 }
 
 void mosfetLED_input(String topic, String inputString) {
