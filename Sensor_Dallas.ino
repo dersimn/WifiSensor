@@ -2,7 +2,7 @@
 #include <DallasTemperature.h>
 
 Thread meassureThread = Thread();
-Thread outputThread = Thread();
+ThreadRunOnce outputThread = ThreadRunOnce();
 
 OneWire oneWire(ONE_WIRE_BUS);
 //OneWire oneWire(ONE_WIRE_BUS, PULLUP_PIN);

@@ -7,6 +7,7 @@
 #include <ESP8266WiFi.h>        // Wifi Library
 #include <PubSubClient.h>       // MQTT Library
 #include <Thread.h>
+#include <ThreadRunOnce.h>
 #include <ThreadController.h>
 
 #include <DallasTemperature.h>  // Throws compiler error if not specified here
