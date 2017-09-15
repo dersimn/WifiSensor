@@ -4,7 +4,7 @@ void setup_mosfetLED() {
   pinMode(MOSFETLED_PIN, OUTPUT);
   digitalWrite(MOSFETLED_PIN, LOW);
 
-  mqtt_subscribe("lighting/mosfetled",  mosfetLED_subscribe);
+  mqtt_subscribe("lights/mosfetled",  mosfetLED_subscribe);
 }
 
 void mosfetLED_subscribe(String topic, String message) {
@@ -29,7 +29,7 @@ void mosfetLED_off() {
 
 void mosfetLED_postNewState() {
   String state = String(mosfetLED_brightness / 255.0 * 100.0);
-  mqtt_publish("lighting/mosfetled", state);
+  mqtt_publish("lights/mosfetled", state);
 }
 
 

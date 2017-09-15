@@ -35,8 +35,8 @@ void setup_FastLED() {
   led_base_hue.onRun(led_base_hue_func);
   threadControl.add(&led_base_hue); 
 
-  mqtt_subscribe("lighting/fastled",            FastLED_subscribe_solid);
-  mqtt_subscribe("lighting/fastled/animation",  FastLED_subscribe_animation);
+  mqtt_subscribe("lights/fastled",            FastLED_subscribe_solid);
+  mqtt_subscribe("lights/fastled/animation",  FastLED_subscribe_animation);
 }
 
 void led_show_func() {
@@ -74,14 +74,8 @@ void FastLED_subscribe_animation(String topic, String message) {
 }
 
 void led_solid(String inputString) {
-  Serial.println("led_solid input");
-  
   String results[10];
   uint8_t count = explode(results, inputString, ',');
-  for (uint8_t i = 0; i < count; i++) {
-    Serial.print("i = ");Serial.println(i);
-    Serial.print("result = ");Serial.println(results[i]);
-  }
 
   if ( count != 3 ) return;
 
@@ -102,7 +96,7 @@ void postNewState() {
   state += ",";
   state += String(brightness / 255.0 * 100.0);
   
-  mqtt_publish("lighting/fastled", state);
+  mqtt_publish("lights/fastled", state);
 }
 
 void led_fillSolidColor() {
@@ -131,7 +125,7 @@ void led_animation_msg(String inputString) {
     led_animation.enabled = true;
     led_base_hue.enabled = true;
     
-    mqtt_publish("lighting/fastled/animation", "sinelon");
+    mqtt_publish("lights/fastled/animation", "sinelon");
   } else if (inputString == "rainbow") {
     currentPatternNumber = 1;
 
@@ -141,7 +135,7 @@ void led_animation_msg(String inputString) {
     led_animation.enabled = true;
     led_base_hue.enabled = true;
     
-    mqtt_publish("lighting/fastled/animation", "rainbow");
+    mqtt_publish("lights/fastled/animation", "rainbow");
   } else if (inputString == "confetti") {
     currentPatternNumber = 2;
     
@@ -151,7 +145,7 @@ void led_animation_msg(String inputString) {
     led_animation.enabled = true;
     led_base_hue.enabled = true;
 
-    mqtt_publish("lighting/fastled/animation", "confetti");
+    mqtt_publish("lights/fastled/animation", "confetti");
   }
 }
 
