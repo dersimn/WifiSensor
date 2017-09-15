@@ -4,8 +4,8 @@
 Thread meassureThread = Thread();
 ThreadRunOnce outputThread = ThreadRunOnce();
 
-OneWire oneWire(ONE_WIRE_BUS);
-//OneWire oneWire(ONE_WIRE_BUS, PULLUP_PIN);
+//OneWire oneWire(ONE_WIRE_BUS);
+OneWire oneWire(ONE_WIRE_BUS, PULLUP_PIN);
 DallasTemperature sensors(&oneWire);
 
 DeviceAddress devices[MAX_DEVICES];
