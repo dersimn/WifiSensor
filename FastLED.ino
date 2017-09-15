@@ -1,6 +1,3 @@
-#include <FastLED.h>
-#include <NeoPixelBus.h>
-
 NeoPixelBus<NeoGrbFeature, NeoEsp8266Dma800KbpsMethod> strip(NUM_LEDS);
 CRGB leds[NUM_LEDS];
 Thread led_show = Thread();
@@ -90,13 +87,7 @@ void led_solid(String inputString) {
 }
 
 void postNewState() {
-  String state = String(hue / 255.0 * 360.0);
-  state += ",";
-  state += String(saturation / 255.0 * 100.0);
-  state += ",";
-  state += String(brightness / 255.0 * 100.0);
-  
-  mqtt_publish("lights/fastled", state);
+  mqtt_publish("lights/fastled", s+rescale(hue,255,360)+","+rescale(saturation,255,100)+","+rescale(brightness,255,100));
 }
 
 void led_fillSolidColor() {

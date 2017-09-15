@@ -22,9 +22,13 @@
 
 #include <FastLED.h>            // https://github.com/FastLED/FastLED
 #include <NeoPixelBus.h>        // https://github.com/Makuna/NeoPixelBus
+                                // Usage of both libraries because of flicekring issue, see: 
+                                // https://github.com/FastLED/FastLED/issues/306
 
-// --------------------------------------------------------
+#include <OneWire.h>
+#include <DallasTemperature.h>  // https://github.com/milesburton/Arduino-Temperature-Control-Library
 
+#include <dht_nonblocking.h>    // https://github.com/olewolf/DHT_nonblocking
 #include <DallasTemperature.h>  // Throws compiler error if not specified in main file
 
 // --------------------------------------------------------
@@ -35,6 +39,7 @@ LogSerialModule serialModule(115200);
 GenericLog Log    (logHandler);
 NamedLog   LogWiFi(logHandler, "WiFi");
 NamedLog   LogMqtt(logHandler, "MQTT");
+NamedLog   LogDallas(logHandler, "Dallas");
 
 ThreadController threadControl = ThreadController();
 
@@ -43,6 +48,7 @@ PubSubClient mqttClient(espClient);
 
 String BOARD_ID = String("WifiSensor")+ESP.getChipId();
 char   BOARD_ID_CHAR[50];
+String s = "";
 
 // --------------------------------------------------------
 

@@ -1,6 +1,3 @@
-#include <OneWire.h>
-#include <DallasTemperature.h>
-
 Thread meassureThread = Thread();
 ThreadRunOnce outputThread = ThreadRunOnce();
 
@@ -13,40 +10,34 @@ String devices_str[MAX_DEVICES];
 uint8_t device_count;
 
 void setup_Sensor_Dallas() {
-  Serial.println("Detecting Dallas Temperature ICs");
+  LogDallas.info("Detecting Temperature ICs");
   sensors.begin();
-  Serial.print("Locating devices...");
-  Serial.print("Found ");
   device_count = sensors.getDeviceCount();
-  Serial.print(device_count, DEC);
-  Serial.println(" devices.");
 
-  Serial.print("Parasite power is: "); 
-  if (sensors.isParasitePowerMode())
-    Serial.println("ON");
-  else
-    Serial.println("OFF");
+  // Debug out
+  if ( device_count != 0 ) {
+    LogDallas.info(s+"Found " + device_count + " devices");
+  } else {
+    LogDallas.warn("No devices found");
+  }
+  LogDallas.info(s+"Parasite power is: " + (sensors.isParasitePowerMode()) ? "ON" : "OFF"); 
 
   // by index
   for (uint8_t i = 0; i < device_count; i++) {
-    if (!sensors.getAddress(devices[i], i)) Serial.print("Unable to find address for Device ");Serial.println(i);
+    if (!sensors.getAddress(devices[i], i)) {
+      LogDallas.error(s+"Unable to find address for Device " + i);
+    }
   }
 
   // show the addresses we found on the bus
   for (uint8_t i = 0; i < device_count; i++) {
-    Serial.print("Device ");Serial.print(i);Serial.print(" Address: ");
     devices_str[i] = stringPrintAddress(devices[i]);
-    Serial.print(devices_str[i]); Serial.println();
+    LogDallas.info(s+"Device " + i + " Address: " + devices_str[i]);
   }
 
   // set the resolution per device
   for (uint8_t i = 0; i < device_count; i++) {
     sensors.setResolution(devices[i], TEMPERATURE_PRECISION);
-  }
-  for (uint8_t i = 0; i < device_count; i++) {
-    Serial.print("Device ");Serial.print(devices_str[i]);Serial.print(" Resolution: ");
-    Serial.print(sensors.getResolution(devices[i]), DEC); 
-    Serial.println();
   }
 
   // Non-blocking temperature reads
@@ -62,18 +53,12 @@ void setup_Sensor_Dallas() {
 }
 
 void measure_func() {
-  Serial.print("Requesting temperatures...");
   sensors.requestTemperatures();
-  Serial.println("DONE");
   outputThread.setRunOnce(2000);
 }
 void output_func() {
-  char msg[50];
-  // print the device information
   for (uint8_t i = 0; i < device_count; i++) {
     float tempC = sensors.getTempC(devices[i]);
-    Serial.print("Device ");Serial.print(devices_str[i]);Serial.print(" has ");Serial.print(tempC);Serial.println(" *C");
-  
     mqtt_publish(String("temperature/dallas/")+devices_str[i], String(tempC, 2));
   }
 }

@@ -28,8 +28,7 @@ void mosfetLED_off() {
 }
 
 void mosfetLED_postNewState() {
-  String state = String(mosfetLED_brightness / 255.0 * 100.0);
-  mqtt_publish("lights/mosfetled", state);
+  mqtt_publish("lights/mosfetled", rescale(mosfetLED_brightness, 255, 100));
 }
 
 
@@ -40,12 +39,12 @@ void mosfetLED_solid(String inputString) {
   if (bri_raw < 2.0) { 
     bri_tmp = 0;
   } else {
-    bri_tmp = bri_raw / 100.0 * 255.0;
+    bri_tmp = (uint8_t)rescale(bri_raw, 100, 255);
   }
   if (bri_raw > 98.0) { 
     bri_tmp = 255;
   } else {
-    bri_tmp = bri_raw / 100.0 * 255.0;
+    bri_tmp = (uint8_t)rescale(bri_raw, 100, 255);
   }
   
   //TODO: check values
