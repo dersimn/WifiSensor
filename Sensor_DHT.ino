@@ -1,6 +1,6 @@
 #if SENSOR_DHT_ENABLE
 
-DHT_nonblocking dht_sensor( DHTPIN, DHT_SENSOR_TYPE );
+DHT_nonblocking dht_sensor( DHT_PIN, DHT_SENSOR_TYPE );
 
 void loop_Sensor_DHT() {
   float temperature;

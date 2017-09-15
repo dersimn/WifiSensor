@@ -12,11 +12,11 @@
 
 #define FASTLED_ENABLE        1
 #define MOSFETLED_ENABLE      1
-#define SENSOR_DHT_ENABLE     0
-#define SENSOR_DALLAS_ENABLE  0
+#define SENSOR_DHT_ENABLE     1
+#define SENSOR_DALLAS_ENABLE  1
 
 // Sensor_DHT
-#define DHTPIN                D4
+#define DHT_PIN               D4
 #define DHT_SENSOR_TYPE       DHT_TYPE_22
 #define DHT_INTERVAL          10000
 
@@ -28,8 +28,8 @@
 #define DS_PRECISION          12
 
 // FastLED
-#define NUM_LEDS              16
-#define FRAMES_PER_SECOND     120
+#define FASTLED_NUM_LEDS      16
+#define FASTLED_FPS           120
 
 // mosfetLED
 #define MOSFETLED_PIN         D5
