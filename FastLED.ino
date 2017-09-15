@@ -36,10 +36,6 @@ void setup_FastLED() {
   threadControl.add(&led_base_hue); 
 }
 
-void loop_fastled() {
-  
-}
-
 void led_show_func() {
   RgbColor pixel;
   for (int i = 0; i < NUM_LEDS; i++)
