@@ -56,7 +56,6 @@ void setup() {
   // Init Submodules
   setup_FastLED();
   setup_mosfetLED();
-  setup_RotaryEncoder();
 
   setup_WiFi();
   setup_MQTT();
