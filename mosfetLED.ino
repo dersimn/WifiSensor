@@ -3,17 +3,19 @@ uint8_t mosfetLED_brightness = 255;
 void setup_mosfetLED() {
   pinMode(MOSFETLED_PIN, OUTPUT);
   digitalWrite(MOSFETLED_PIN, LOW);
+
+  mqtt_subscribe("mosfetled/brightness",  mosfetLED_subscribe);
 }
 
-void mosfetLED_input(String topic, String inputString) {
-  if (inputString == "ON") {
+void mosfetLED_subscribe(String topic, String message) {
+  if (message == "ON") {
     mosfetLED_on();
     mosfetLED_setOutput();
-  } else if (inputString == "OFF") {
+  } else if (message == "OFF") {
     mosfetLED_off();
     mosfetLED_setOutput();
   } else {
-    mosfetLED_solid(inputString);
+    mosfetLED_solid(message);
     mosfetLED_setOutput();
   }
 }
@@ -27,7 +29,7 @@ void mosfetLED_off() {
 
 void mosfetLED_postNewState() {
   String state = String(mosfetLED_brightness / 255.0 * 100.0);
-  mqtt_publish(MOSFETLED_STATE_TOPIC, state);
+  mqtt_publish("mosfetled/brightness", state);
 }
 
 
