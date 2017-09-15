@@ -87,31 +87,10 @@ void led_solid(String inputString) {
 
   if ( count != 3 ) return;
 
-  // Hue 0-360
-  uint8_t hue_tmp;
-  float hue_raw = (results[0]).toFloat();
-  hue_tmp = hue_raw / 360.0 * 255.0;
-
-  // Saturation 0-100
-  uint8_t sat_tmp;
-  float sat_raw = (results[1]).toFloat();
-  sat_tmp = sat_raw / 100.0 * 255.0;
-
-  // Brightness 0-100
-  uint8_t bri_tmp;
-  float bri_raw = (results[2]).toFloat();
-  if (bri_raw < 1.0) { 
-    bri_tmp = 0;
-  } else {
-    bri_tmp = bri_raw / 100.0 * 255.0;
-  }
-
-  Serial.println("conversion done");
-
   //TODO: check values
-  hue = hue_tmp;
-  saturation = sat_tmp;
-  brightness = bri_tmp;
+  hue =        (uint8_t)rescale( (results[0]).toFloat() , 360.0 , 255.0 );
+  saturation = (uint8_t)rescale( (results[1]).toFloat() , 100.0 , 255.0 );
+  brightness = (uint8_t)rescale( (results[2]).toFloat() , 100.0 , 255.0 );
 
   // Output
   led_fillSolidColor();

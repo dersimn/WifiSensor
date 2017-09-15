@@ -15,3 +15,8 @@ uint8_t explode(String *results, String source, char delimiter)
 
     return count;
 }
+
+float rescale(float input, float input_range, float output_range) {
+  return input / input_range * output_range;
+}
+
