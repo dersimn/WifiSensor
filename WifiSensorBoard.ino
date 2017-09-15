@@ -50,16 +50,16 @@ void setup() {
   BOARD_ID.toCharArray(BOARD_ID_CHAR, 50);
 
   logHandler.addModule(&serialModule);
-  Log.info("Initializing 'DevilRemote'");
+  Log.info("Initializing 'WifiSensor'");
   Log.info( String("ESP ID: ") + ESP.getChipId() );
 
   // Init Submodules
-  setup_FastLED();
-  setup_mosfetLED();
-
   setup_WiFi();
   setup_MQTT();
   setup_ArduinoOTA();
+  
+  setup_FastLED();
+  setup_mosfetLED();
   
   setup_Sensor_Dallas();
   
