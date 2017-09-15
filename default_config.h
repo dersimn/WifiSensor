@@ -21,11 +21,11 @@
 #define DHT_INTERVAL          10000
 
 // Sensor_Dallas
-#define ONE_WIRE_BUS          D3
-#define PULLUP_PIN            D0
-#define MAX_DEVICES           5
-#define DALLAS_INTERVAL       10000
-#define TEMPERATURE_PRECISION 12
+#define DS_ONE_WIRE_BUS       D3
+#define DS_PULLUP_PIN         D0
+#define DS_MAX_DEVICES        5
+#define DS_INTERVAL           10000
+#define DS_PRECISION          12
 
 // FastLED
 #define NUM_LEDS              16

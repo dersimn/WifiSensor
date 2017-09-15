@@ -3,12 +3,15 @@
 Thread meassureThread = Thread();
 ThreadRunOnce outputThread = ThreadRunOnce();
 
-//OneWire oneWire(ONE_WIRE_BUS);
-OneWire oneWire(ONE_WIRE_BUS, PULLUP_PIN);
+#ifdef DS_PULLUP_PIN
+OneWire oneWire(DS_ONE_WIRE_BUS, DS_PULLUP_PIN);
+#else
+OneWire oneWire(DS_ONE_WIRE_BUS);
+#endif
 DallasTemperature sensors(&oneWire);
 
-DeviceAddress devices[MAX_DEVICES];
-String devices_str[MAX_DEVICES];
+DeviceAddress devices[DS_MAX_DEVICES];
+String devices_str[DS_MAX_DEVICES];
 uint8_t device_count;
 
 void setup_Sensor_Dallas() {
@@ -39,14 +42,14 @@ void setup_Sensor_Dallas() {
 
   // set the resolution per device
   for (uint8_t i = 0; i < device_count; i++) {
-    sensors.setResolution(devices[i], TEMPERATURE_PRECISION);
+    sensors.setResolution(devices[i], DS_PRECISION);
   }
 
   // Non-blocking temperature reads
   sensors.setWaitForConversion(false);
 
   meassureThread.onRun(measure_func);
-  meassureThread.setInterval(DALLAS_INTERVAL);
+  meassureThread.setInterval(DS_INTERVAL);
   threadControl.add(&meassureThread);
 
   outputThread.onRun(output_func);
