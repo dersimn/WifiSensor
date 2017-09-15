@@ -55,7 +55,7 @@ void setup() {
   Log.info( String("ESP ID: ") + ESP.getChipId() );
 
   // Init Submodules
-  setup_fastled();
+  setup_FastLED();
   setup_mosfetLED();
   setup_RotaryEncoder();
 
@@ -63,8 +63,7 @@ void setup() {
   setup_MQTT();
   setup_ArduinoOTA();
   
-  setup_sensor_dht();
-  setup_dallas();
+  setup_Sensor_Dallas();
   
   setup_Maintanance();
 
@@ -81,7 +80,7 @@ void loop() {
   loop_MQTT();
   loop_ArduinoOTA();
 
-  loop_sensor_dht();
+  loop_Sensor_DHT();
 
   threadControl.run();
 }

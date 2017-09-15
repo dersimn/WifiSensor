@@ -12,7 +12,7 @@ DeviceAddress devices[MAX_DEVICES];
 String devices_str[MAX_DEVICES];
 uint8_t device_count;
 
-void setup_dallas() {
+void setup_Sensor_Dallas() {
   Serial.println("Detecting Dallas Temperature ICs");
   sensors.begin();
   Serial.print("Locating devices...");

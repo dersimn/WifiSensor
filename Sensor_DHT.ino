@@ -2,11 +2,7 @@
 
 DHT_nonblocking dht_sensor( DHTPIN, DHT_SENSOR_TYPE );
 
-void setup_sensor_dht() {
-  
-}
-
-void loop_sensor_dht() {
+void loop_Sensor_DHT() {
   float temperature;
   float humidity;
   if( measure_environment( &temperature, &humidity ) == true )

@@ -16,7 +16,7 @@ uint8_t currentPatternNumber = 0;
 typedef void (*SimplePatternList[])();
 SimplePatternList patterns = { sinelon, rainbow, confetti };
 
-void setup_fastled() {
+void setup_FastLED() {
   // this resets all the neopixels to an off state
   strip.Begin();
   strip.Show();  
