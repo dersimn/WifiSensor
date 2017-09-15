@@ -74,12 +74,7 @@ void output_func() {
     float tempC = sensors.getTempC(devices[i]);
     Serial.print("Device ");Serial.print(devices_str[i]);Serial.print(" has ");Serial.print(tempC);Serial.println(" *C");
   
-    String topic_str, msg_str;
-    topic_str = String(DALLAS_BASETOPIC); 
-    topic_str += devices_str[i];
-    msg_str = String(tempC, 2);
-    
-    mqtt_publish(topic_str, msg_str);
+    mqtt_publish(String("temperature/dallas/")+devices_str[i], String(tempC, 2));
   }
 }
 

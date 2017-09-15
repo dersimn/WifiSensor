@@ -13,8 +13,8 @@ void loop_Sensor_DHT() {
     Serial.print( humidity, 1 );
     Serial.println( "%" );
 
-    mqtt_publish(DHT_TEMPERATURE_TOPIC, String(temperature, 1));
-    mqtt_publish(DHT_HUMIDITY_TOPIC, String(humidity, 1));
+    mqtt_publish("temperature/dht", String(temperature, 1));
+    mqtt_publish("humidity/dht"   , String(humidity, 1));
   }  
 }
 

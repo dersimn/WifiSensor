@@ -34,6 +34,9 @@ void setup_FastLED() {
   led_base_hue.setInterval(20);
   led_base_hue.onRun(led_base_hue_func);
   threadControl.add(&led_base_hue); 
+
+  mqtt_subscribe("lighting/fastled",            FastLED_subscribe);
+  mqtt_subscribe("lighting/fastled/animation",  FastLED_subscribe);
 }
 
 void led_show_func() {
@@ -53,20 +56,20 @@ void led_base_hue_func() {
   baseHue++;
 }
 
-void led_input(String topic, String inputString) {
+void FastLED_subscribe(String topic, String message) {
   if (topic == LED_SOLID_TOPIC) {
-    if (inputString == "ON") {
+    if (message == "ON") {
       led_on();
-    } else if (inputString == "OFF") {
+    } else if (message == "OFF") {
       led_off();
     } else {
-      led_solid(inputString);
+      led_solid(message);
     }
   } else if (topic == LED_ANIMATION_TOPIC) {
-    if (inputString == "OFF") {
+    if (message == "OFF") {
       led_off();
     } else {
-      led_animation_msg(inputString);
+      led_animation_msg(message);
     }
   }
 }
@@ -100,7 +103,7 @@ void postNewState() {
   state += ",";
   state += String(brightness / 255.0 * 100.0);
   
-  mqtt_publish(LED_STATE_TOPIC, state);
+  mqtt_publish("lighting/fastled", state);
 }
 
 void led_fillSolidColor() {
