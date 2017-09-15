@@ -1,3 +1,5 @@
+#if SENSOR_DALLAS_ENABLE
+
 Thread meassureThread = Thread();
 ThreadRunOnce outputThread = ThreadRunOnce();
 
@@ -73,3 +75,8 @@ String stringPrintAddress(DeviceAddress deviceAddress) {
   }
   return tmp;
 }
+
+#else
+void setup_Sensor_Dallas() {}
+void loop_Sensor_Dallas() {}
+#endif

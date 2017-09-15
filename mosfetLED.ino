@@ -1,4 +1,6 @@
-uint8_t mosfetLED_brightness = 255;
+#if MOSFETLED_ENABLE
+
+uint8_t mosfetLED_brightness = 0;
 
 void setup_mosfetLED() {
   pinMode(MOSFETLED_PIN, OUTPUT);
@@ -28,7 +30,7 @@ void mosfetLED_off() {
 }
 
 void mosfetLED_postNewState() {
-  mqtt_publish("lights/mosfetled", rescale(mosfetLED_brightness, 255, 100));
+  mqtt_publish("lights/mosfetled", s+rescale(mosfetLED_brightness, 255, 100));
 }
 
 
@@ -66,3 +68,7 @@ void mosfetLED_setOutput() {
   mosfetLED_postNewState();
 }
 
+#else
+void setup_mosfetLED() {}
+void loop_mosfetLED() {}
+#endif

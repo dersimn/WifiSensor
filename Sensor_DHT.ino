@@ -1,3 +1,5 @@
+#if SENSOR_DHT_ENABLE
+
 DHT_nonblocking dht_sensor( DHTPIN, DHT_SENSOR_TYPE );
 
 void loop_Sensor_DHT() {
@@ -27,3 +29,7 @@ static bool measure_environment( float *temperature, float *humidity )
   return( false );
 }
 
+#else
+void setup_Sensor_DHT() {}
+void loop_Sensor_DHT() {}
+#endif

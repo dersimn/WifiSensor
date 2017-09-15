@@ -1,4 +1,3 @@
-#define MQTT_SERVER     "10.1.1.50"
 /*
  * Build MQTT topics like
  *     
@@ -8,19 +7,29 @@
  *     
  * ID and services will be added in file MQTT.ino
  */
-#define MQTT_PREFIX     "dersimn"
+#define MQTT_PREFIX           "dersimn"
+#define MQTT_SERVER           "10.1.1.50"
 
-#define DHTPIN D4
-#define DHT_SENSOR_TYPE DHT_TYPE_22
-#define DHT_INTERVAL 10000
+#define FASTLED_ENABLE        1
+#define MOSFETLED_ENABLE      1
+#define SENSOR_DHT_ENABLE     0
+#define SENSOR_DALLAS_ENABLE  0
 
-#define ONE_WIRE_BUS D3
-#define PULLUP_PIN D0
+// Sensor_DHT
+#define DHTPIN                D4
+#define DHT_SENSOR_TYPE       DHT_TYPE_22
+#define DHT_INTERVAL          10000
+
+// Sensor_Dallas
+#define ONE_WIRE_BUS          D3
+#define PULLUP_PIN            D0
+#define MAX_DEVICES           5
+#define DALLAS_INTERVAL       10000
 #define TEMPERATURE_PRECISION 12
-#define MAX_DEVICES 5
-#define DALLAS_INTERVAL 10000
 
-#define NUM_LEDS 16
-#define FRAMES_PER_SECOND  120
+// FastLED
+#define NUM_LEDS              16
+#define FRAMES_PER_SECOND     120
 
-#define MOSFETLED_PIN D5
+// mosfetLED
+#define MOSFETLED_PIN         D5

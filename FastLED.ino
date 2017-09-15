@@ -1,3 +1,5 @@
+#if FASTLED_ENABLE
+
 NeoPixelBus<NeoGrbFeature, NeoEsp8266Dma800KbpsMethod> strip(NUM_LEDS);
 CRGB leds[NUM_LEDS];
 Thread led_show = Thread();
@@ -156,3 +158,7 @@ void rainbow() {
   fill_rainbow( leds, NUM_LEDS, baseHue);
 }
 
+#else
+void setup_FastLED() {}
+void loop_FastLED() {}
+#endif
