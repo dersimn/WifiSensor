@@ -35,8 +35,8 @@ void setup_FastLED() {
   led_base_hue.onRun(led_base_hue_func);
   threadControl.add(&led_base_hue); 
 
-  mqtt_subscribe("lighting/fastled",            FastLED_subscribe);
-  mqtt_subscribe("lighting/fastled/animation",  FastLED_subscribe);
+  mqtt_subscribe("lighting/fastled",            FastLED_subscribe_solid);
+  mqtt_subscribe("lighting/fastled/animation",  FastLED_subscribe_animation);
 }
 
 void led_show_func() {
@@ -56,21 +56,20 @@ void led_base_hue_func() {
   baseHue++;
 }
 
-void FastLED_subscribe(String topic, String message) {
-  if (topic == LED_SOLID_TOPIC) {
-    if (message == "ON") {
-      led_on();
-    } else if (message == "OFF") {
-      led_off();
-    } else {
-      led_solid(message);
-    }
-  } else if (topic == LED_ANIMATION_TOPIC) {
-    if (message == "OFF") {
-      led_off();
-    } else {
-      led_animation_msg(message);
-    }
+void FastLED_subscribe_solid(String topic, String message) {
+  if (message == "ON") {
+    led_on();
+  } else if (message == "OFF") {
+    led_off();
+  } else {
+    led_solid(message);
+  }
+}
+void FastLED_subscribe_animation(String topic, String message) {
+  if (message == "OFF") {
+    led_off();
+  } else {
+    led_animation_msg(message);
   }
 }
 
@@ -132,7 +131,7 @@ void led_animation_msg(String inputString) {
     led_animation.enabled = true;
     led_base_hue.enabled = true;
     
-    mqttClient.publish(LED_STATE_TOPIC, "sinelon");
+    mqtt_publish("lighting/fastled/animation", "sinelon");
   } else if (inputString == "rainbow") {
     currentPatternNumber = 1;
 
@@ -142,7 +141,7 @@ void led_animation_msg(String inputString) {
     led_animation.enabled = true;
     led_base_hue.enabled = true;
     
-    mqttClient.publish(LED_STATE_TOPIC, "rainbow");
+    mqtt_publish("lighting/fastled/animation", "rainbow");
   } else if (inputString == "confetti") {
     currentPatternNumber = 2;
     
@@ -152,7 +151,7 @@ void led_animation_msg(String inputString) {
     led_animation.enabled = true;
     led_base_hue.enabled = true;
 
-    mqttClient.publish(LED_STATE_TOPIC, "confetti");
+    mqtt_publish("lighting/fastled/animation", "confetti");
   }
 }
 
