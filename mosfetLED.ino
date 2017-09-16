@@ -4,7 +4,7 @@ uint8_t mosfetLED_brightness = 0;
 
 void setup_mosfetLED() {
   pinMode(MOSFETLED_PIN, OUTPUT);
-  digitalWrite(MOSFETLED_PIN, LOW);
+  analogWrite(MOSFETLED_PIN, 0);
 
   mqtt_subscribe("lights/mosfetled",  mosfetLED_subscribe);
 }
@@ -23,14 +23,14 @@ void mosfetLED_subscribe(String topic, String message) {
 }
 
 void mosfetLED_on() {
-  mosfetLED_brightness = 255;
+  mosfetLED_brightness = PWMRANGE;
 }
 void mosfetLED_off() {
   mosfetLED_brightness = 0;
 }
 
 void mosfetLED_postNewState() {
-  mqtt_publish("lights/mosfetled", s+rescale(mosfetLED_brightness, 255, 100));
+  mqtt_publish("lights/mosfetled", s+rescale(mosfetLED_brightness, PWMRANGE, 100));
 }
 
 
@@ -41,12 +41,12 @@ void mosfetLED_solid(String inputString) {
   if (bri_raw < 2.0) { 
     bri_tmp = 0;
   } else {
-    bri_tmp = (uint8_t)rescale(bri_raw, 100, 255);
+    bri_tmp = (uint8_t)rescale(bri_raw, 100, PWMRANGE);
   }
   if (bri_raw > 98.0) { 
-    bri_tmp = 255;
+    bri_tmp = PWMRANGE;
   } else {
-    bri_tmp = (uint8_t)rescale(bri_raw, 100, 255);
+    bri_tmp = (uint8_t)rescale(bri_raw, 100, PWMRANGE);
   }
   
   //TODO: check values
@@ -54,17 +54,7 @@ void mosfetLED_solid(String inputString) {
 }
 
 void mosfetLED_setOutput() {
-  if (mosfetLED_brightness < 5) { 
-    analogWrite(MOSFETLED_PIN, 0);
-    digitalWrite(MOSFETLED_PIN, LOW);
-  } else if (mosfetLED_brightness > 250) { 
-    analogWrite(MOSFETLED_PIN, 0);
-    digitalWrite(MOSFETLED_PIN, HIGH);
-  } else {
-    analogWrite(MOSFETLED_PIN, mosfetLED_brightness);
-  }
-
-  // Output
+  analogWrite(MOSFETLED_PIN, mosfetLED_brightness);
   mosfetLED_postNewState();
 }
 
