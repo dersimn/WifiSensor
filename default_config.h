@@ -15,6 +15,7 @@
 #define SENSOR_DHT_ENABLE     1
 #define SENSOR_DALLAS_ENABLE  1
 #define SENSOR_BMP_ENABLE     1
+#define SENSOR_TSL2561_ENABLE 1
 
 // Sensor_DHT
 #define DHT_PIN               D4
@@ -30,6 +31,9 @@
 
 // Sensor_BMP
 #define BMP_INTERVAL          10000
+
+// Sensor_TSL2561
+#define TSL2561_INTERVAL      10000
 
 // FastLED
 #define FASTLED_NUM_LEDS      16

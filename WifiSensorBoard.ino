@@ -34,6 +34,10 @@
 #include <Adafruit_BMP085.h>    // https://github.com/adafruit/Adafruit-BMP085-Library
                                 // This library is NOT a non-blocking one. It uses delay(5) for timing. Better don't use together with FastLED and animations.
 
+#include <Wire.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_TSL2561_U.h> // https://github.com/adafruit/Adafruit_TSL2561
+
 // --------------------------------------------------------
 
 LogHandler logHandler;
@@ -44,6 +48,7 @@ NamedLog   LogWiFi(logHandler, "WiFi");
 NamedLog   LogMqtt(logHandler, "MQTT");
 NamedLog   LogDallas(logHandler, "Dallas");
 NamedLog   LogBMP(logHandler, "BMP");
+NamedLog   LogTSL2561(logHandler, "TSL2561");
 
 ThreadController threadControl = ThreadController();
 
@@ -73,6 +78,7 @@ void setup() {
   
   setup_Sensor_Dallas();
   setup_Sensor_BMP();
+  setup_Sensor_TSL2561();
   
   setup_Maintanance();
 
