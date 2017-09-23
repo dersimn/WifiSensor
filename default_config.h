@@ -14,6 +14,7 @@
 #define MOSFETLED_ENABLE      1
 #define SENSOR_DHT_ENABLE     1
 #define SENSOR_DALLAS_ENABLE  1
+#define SENSOR_BMP_ENABLE     1
 
 // Sensor_DHT
 #define DHT_PIN               D4
@@ -26,6 +27,9 @@
 #define DS_MAX_DEVICES        5
 #define DS_INTERVAL           10000
 #define DS_PRECISION          12
+
+// Sensor_BMP
+#define BMP_INTERVAL          10000
 
 // FastLED
 #define FASTLED_NUM_LEDS      16

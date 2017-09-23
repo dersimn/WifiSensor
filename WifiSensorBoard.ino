@@ -31,6 +31,9 @@
 #include <dht_nonblocking.h>    // https://github.com/olewolf/DHT_nonblocking
 #include <DallasTemperature.h>  // Throws compiler error if not specified in main file
 
+#include <Adafruit_BMP085.h>    // https://github.com/adafruit/Adafruit-BMP085-Library
+                                // This library is NOT a non-blocking one. It uses delay(5) for timing. Better don't use together with FastLED and animations.
+
 // --------------------------------------------------------
 
 LogHandler logHandler;
@@ -40,6 +43,7 @@ GenericLog Log    (logHandler);
 NamedLog   LogWiFi(logHandler, "WiFi");
 NamedLog   LogMqtt(logHandler, "MQTT");
 NamedLog   LogDallas(logHandler, "Dallas");
+NamedLog   LogBMP(logHandler, "BMP");
 
 ThreadController threadControl = ThreadController();
 
@@ -68,6 +72,7 @@ void setup() {
   setup_mosfetLED();
   
   setup_Sensor_Dallas();
+  setup_Sensor_BMP();
   
   setup_Maintanance();
 
