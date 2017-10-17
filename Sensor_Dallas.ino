@@ -25,7 +25,7 @@ void setup_Sensor_Dallas() {
   } else {
     LogDallas.warn("No devices found");
   }
-  LogDallas.info(s+"Parasite power is: " + (sensors.isParasitePowerMode()) ? "ON" : "OFF"); 
+  LogDallas.info(s+"Parasite power is: " + ((sensors.isParasitePowerMode()) ? "ON" : "OFF")); 
 
   // by index
   for (uint8_t i = 0; i < device_count; i++) {
@@ -64,7 +64,11 @@ void measure_func() {
 void output_func() {
   for (uint8_t i = 0; i < device_count; i++) {
     float tempC = sensors.getTempC(devices[i]);
-    mqtt_publish(String("temperature/dallas/")+devices_str[i], String(tempC, 2));
+    if ( tempC == 85 || tempC == -127 ) {
+      LogDallas.warn(s+"Sensor "+devices_str[i]+" read error");
+    } else {
+      mqtt_publish(String("temperature/dallas/")+devices_str[i], String(tempC, 2));
+    }
   }
 }
 
