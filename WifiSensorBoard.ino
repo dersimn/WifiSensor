@@ -5,6 +5,7 @@
 #include <NamedLog.h>
 #include <LogHandler.h>
 #include <LogSerialModule.h>
+#include <LogMqttModule.h>
 
 #include <Thread.h>             // https://github.com/ivanseidel/ArduinoThread
 #include <ThreadController.h>
@@ -59,12 +60,16 @@ String BOARD_ID = String("WifiSensor")+ESP.getChipId();
 char   BOARD_ID_CHAR[50];
 String s = "";
 
+LogMqttModule mqttModule(&mqttClient, s + MQTT_PREFIX + "/status/" + BOARD_ID + "/maintenance/log");
+
 // --------------------------------------------------------
 
 void setup() {
   BOARD_ID.toCharArray(BOARD_ID_CHAR, 50);
 
   logHandler.addModule(&serialModule);
+  mqttModule.setMinimumLogLevel( 2 ); // WARN
+  logHandler.addModule(&mqttModule);
   Log.info("Initializing 'WifiSensor'");
   Log.info( String("ESP ID: ") + ESP.getChipId() );
 
