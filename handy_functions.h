@@ -25,3 +25,9 @@ int limit(int input, int min, int max) {
   if ( input < min ) return min;
   return input;
 }
+
+String upperCaseStr(String str) {
+  str.toUpperCase();
+  return str;
+}
+

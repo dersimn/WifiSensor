@@ -56,7 +56,8 @@ ThreadController threadControl = ThreadController();
 WiFiClient espClient;
 PubSubClient mqttClient(espClient);
 
-String BOARD_ID = String("WifiSensor")+ESP.getChipId();
+const String ESP_ID = upperCaseStr(String(ESP.getChipId(), HEX));
+const String BOARD_ID = String("WifiSensor_")+ESP_ID;
 char   BOARD_ID_CHAR[50];
 String s = "";
 
@@ -71,7 +72,7 @@ void setup() {
   mqttModule.setMinimumLogLevel( 2 ); // WARN
   logHandler.addModule(&mqttModule);
   Log.info("Initializing 'WifiSensor'");
-  Log.info( String("ESP ID: ") + ESP.getChipId() );
+  Log.info( String("ESP ID: ") + ESP_ID );
 
   // Init Submodules
   setup_WiFi();
