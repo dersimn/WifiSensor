@@ -39,6 +39,8 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_TSL2561_U.h> // https://github.com/adafruit/Adafruit_TSL2561
 
+#include <I2CSoilMoistureSensor.h> // https://github.com/Apollon77/I2CSoilMoistureSensor
+
 // --------------------------------------------------------
 
 LogHandler logHandler;
@@ -50,6 +52,7 @@ NamedLog   LogMqtt(logHandler, "MQTT");
 NamedLog   LogDallas(logHandler, "Dallas");
 NamedLog   LogBMP(logHandler, "BMP");
 NamedLog   LogTSL2561(logHandler, "TSL2561");
+NamedLog   LogChirp(logHandler, "Chirp");
 
 ThreadController threadControl = ThreadController();
 
@@ -85,6 +88,7 @@ void setup() {
   setup_Sensor_Dallas();
   setup_Sensor_BMP();
   setup_Sensor_TSL2561();
+  setup_Sensor_Chirp();
   
   setup_Maintanance();
 

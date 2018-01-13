@@ -16,6 +16,7 @@
 #define SENSOR_DALLAS_ENABLE  1
 #define SENSOR_BMP_ENABLE     1
 #define SENSOR_TSL2561_ENABLE 1
+#define SENSOR_CHIRP_ENABLE   1
 
 // Sensor_DHT
 #define DHT_PIN               D4
@@ -41,3 +42,6 @@
 
 // mosfetLED
 #define MOSFETLED_PIN         D5
+
+// Sensor_Chirp
+#define CHIRP_INTERVAL        10000
