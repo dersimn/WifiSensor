@@ -29,7 +29,6 @@
 
 // Sensor_Dallas
 #define DS_ONE_WIRE_BUS       D3
-//#define DS_PULLUP_PIN         D0
 #define DS_MAX_DEVICES        5
 #define DS_INTERVAL           10000
 #define DS_PRECISION          12

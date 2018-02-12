@@ -3,11 +3,7 @@
 Thread meassureThread = Thread();
 ThreadRunOnce outputThread = ThreadRunOnce();
 
-#ifdef DS_PULLUP_PIN
-OneWire oneWire(DS_ONE_WIRE_BUS, DS_PULLUP_PIN);
-#else
 OneWire oneWire(DS_ONE_WIRE_BUS);
-#endif
 DallasTemperature sensors(&oneWire);
 
 DeviceAddress devices[DS_MAX_DEVICES];
