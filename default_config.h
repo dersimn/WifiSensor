@@ -18,6 +18,10 @@
 #define SENSOR_TSL2561_ENABLE 1
 #define SENSOR_CHIRP_ENABLE   1
 
+// Maintenance
+#define MAINTENANCE_UPTIME_INTERVAL     10
+#define MAINTENANCE_INFO_INTERVAL       60
+
 // Sensor_DHT
 #define DHT_PIN               D4
 #define DHT_SENSOR_TYPE       DHT_TYPE_22
