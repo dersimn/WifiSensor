@@ -10,13 +10,14 @@
 #define MQTT_PREFIX           "dersimn"
 #define MQTT_SERVER           "10.1.1.50"
 
-#define FASTLED_ENABLE        1
-#define MOSFETLED_ENABLE      1
-#define SENSOR_DHT_ENABLE     1
-#define SENSOR_DALLAS_ENABLE  1
-#define SENSOR_BMP_ENABLE     1
-#define SENSOR_TSL2561_ENABLE 1
-#define SENSOR_CHIRP_ENABLE   1
+#define FASTLED_ENABLE        			1
+#define MOSFETLED_ENABLE      			1
+#define SENSOR_DHT_ENABLE     			1
+#define SENSOR_DALLAS_ENABLE  			1
+#define SENSOR_BMP_ENABLE     			1
+#define SENSOR_TSL2561_ENABLE 			1
+#define SENSOR_CHIRP_ENABLE   			1
+#define SENSOR_SINGLE_DALLAS_ENABLE		0
 
 // Maintenance
 #define MAINTENANCE_UPTIME_INTERVAL     10
