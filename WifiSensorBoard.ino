@@ -63,10 +63,10 @@ WiFiClient espClient;
 PubSubClient mqttClient(MQTT_SERVER, 1883, espClient);
 PubSubClientTools mqtt(mqttClient);
 
-const String ESP_ID = upperCaseStr(String(ESP.getChipId(), HEX));
-const String BOARD_ID = String("WifiSensor_")+ESP_ID;
-char   BOARD_ID_CHAR[50];
 String s = "";
+const String ESP_ID = upperCaseStr(String(ESP.getChipId(), HEX));
+const String BOARD_ID = s+BOARD_ID_PREFIX+ESP_ID;
+char   BOARD_ID_CHAR[50];
 
 // --------------------------------------------------------
 

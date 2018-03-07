@@ -7,6 +7,7 @@
  *     
  * ID and services will be added in file MQTT.ino
  */
+#define BOARD_ID_PREFIX					"WifiSensor_"
 #define WIFI_SSID						""
 #define WIFI_PASS						""
 #define MQTT_PREFIX						"dersimn"
