@@ -1,6 +1,9 @@
 Thread reconnectThread = Thread();
 
 void setup_MQTT() {
+  mqtt.setSubscribePrefix(s+MQTT_PREFIX+"/set/"+BOARD_ID+"/"); 
+  mqtt.setPublishPrefix(s+MQTT_PREFIX+"/status/"+BOARD_ID+"/"); 
+
   if (WiFi.status() == WL_CONNECTED) {
     mqtt_reconnect();
   }
