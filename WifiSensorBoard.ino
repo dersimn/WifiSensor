@@ -80,7 +80,8 @@ void setup() {
   // Init Submodules
   setup_WiFi();
   setup_MQTT();
-  setup_ArduinoOTA();
+  ArduinoOTA.setHostname(BOARD_ID_CHAR);
+  ArduinoOTA.begin();
   
   setup_FastLED();
   setup_mosfetLED();
@@ -103,7 +104,7 @@ void loop() {
   }
 
   loop_MQTT();
-  loop_ArduinoOTA();
+  ArduinoOTA.handle();
 
   loop_Sensor_DHT();
 
