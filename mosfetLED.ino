@@ -6,7 +6,7 @@ void setup_mosfetLED() {
   pinMode(MOSFETLED_PIN, OUTPUT);
   analogWrite(MOSFETLED_PIN, 0);
 
-  mqtt_subscribe("lights/mosfetled",  mosfetLED_subscribe);
+  mqtt.subscribe("lights/mosfetled",  mosfetLED_subscribe);
 }
 
 void mosfetLED_subscribe(String topic, String message) {
@@ -30,7 +30,7 @@ void mosfetLED_off() {
 }
 
 void mosfetLED_postNewState() {
-  mqtt_publish("lights/mosfetled", s+rescale(mosfetLED_brightness, PWMRANGE, 100));
+  mqtt.publish("lights/mosfetled", s+rescale(mosfetLED_brightness, PWMRANGE, 100));
 }
 
 

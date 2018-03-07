@@ -14,8 +14,8 @@ void setup_Sensor_BMP() {
 }
 
 void sensorBMPmeassureFunc() {
-  mqtt_publish("temperature/bmp", String(bmp.readTemperature(), 1));
-  mqtt_publish("pressure/bmp", String(bmp.readPressure()/100.0, 2));
+  mqtt.publish("temperature/bmp", String(bmp.readTemperature(), 1));
+  mqtt.publish("pressure/bmp", String(bmp.readPressure()/100.0, 2));
 }
 
 #else

@@ -18,6 +18,7 @@
 #endif
 
 #include <PubSubClient.h>       // https://github.com/knolleary/pubsubclient
+#include <PubSubClientTools.h>  // https://github.com/dersimn/ArduinoPubSubClientTools
 
 #include <ArduinoOTA.h>
 #include <ESP8266mDNS.h>
@@ -59,7 +60,8 @@ NamedLog   LogChirp(logHandler, "Chirp");
 ThreadController threadControl = ThreadController();
 
 WiFiClient espClient;
-PubSubClient mqttClient(espClient);
+PubSubClient mqttClient(MQTT_SERVER, 1883, espClient);
+PubSubClientTools mqtt(mqttClient);
 
 const String ESP_ID = upperCaseStr(String(ESP.getChipId(), HEX));
 const String BOARD_ID = String("WifiSensor_")+ESP_ID;

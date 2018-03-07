@@ -28,7 +28,7 @@ void sensorTSL2561meassureFunc() {
  
   /* Display the results (light is measured in lux) */
   if (event.light) {
-    mqtt_publish("brightness/tsl2561", String(event.light, 0));
+    mqtt.publish("brightness/tsl2561", String(event.light, 0));
   } else {
     /* If event.light = 0 lux the sensor is probably saturated and no reliable data could be generated! */
     LogTSL2561.warn("Sensor overload");

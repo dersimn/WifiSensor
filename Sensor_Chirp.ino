@@ -26,14 +26,14 @@ void sensorChirpMeassureFunc() {
       return;
     }
   }
-  mqtt_publish("moisture/chirp", String(chirp.getCapacitance()));
-  mqtt_publish("temperature/chirp", String(chirp.getTemperature()/(float)10, 1));
+  mqtt.publish("moisture/chirp", String(chirp.getCapacitance()));
+  mqtt.publish("temperature/chirp", String(chirp.getTemperature()/(float)10, 1));
 
   chirp.startMeasureLight();
   sensorChirpOutputThread.setRunOnce(3000);
 }
 void sensorChirpOutputFunc() {
-  mqtt_publish("brightness/chirp", String(chirp.getLight()));
+  mqtt.publish("brightness/chirp", String(chirp.getLight()));
 }
 
 #else

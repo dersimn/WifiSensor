@@ -19,8 +19,8 @@ void uptimePublisher() {
   unsigned long time = millis();
   long_uptime += MAINTENANCE_UPTIME_INTERVAL;
   
-  mqtt_publish("maintenance/uptime/ms", String(time) );
-  mqtt_publish("maintenance/uptime",    String(long_uptime) );
+  mqtt.publish("maintenance/uptime/ms", String(time) );
+  mqtt.publish("maintenance/uptime",    String(long_uptime) );
 }
 
 void infoPublisher() {

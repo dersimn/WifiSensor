@@ -34,8 +34,8 @@ void setup_FastLED() {
   led_base_hue.onRun(led_base_hue_func);
   threadControl.add(&led_base_hue); 
 
-  mqtt_subscribe("lights/fastled",            FastLED_subscribe_solid);
-  mqtt_subscribe("lights/fastled/animation",  FastLED_subscribe_animation);
+  mqtt.subscribe("lights/fastled",            FastLED_subscribe_solid);
+  mqtt.subscribe("lights/fastled/animation",  FastLED_subscribe_animation);
 }
 
 void led_show_func() {
@@ -89,7 +89,7 @@ void led_solid(String inputString) {
 }
 
 void postNewState() {
-  mqtt_publish("lights/fastled", s+rescale(hue,255,360)+","+rescale(saturation,255,100)+","+rescale(brightness,255,100));
+  mqtt.publish("lights/fastled", s+rescale(hue,255,360)+","+rescale(saturation,255,100)+","+rescale(brightness,255,100));
 }
 
 void led_fillSolidColor() {
@@ -118,7 +118,7 @@ void led_animation_msg(String inputString) {
     led_animation.enabled = true;
     led_base_hue.enabled = true;
     
-    mqtt_publish("lights/fastled", "sinelon");
+    mqtt.publish("lights/fastled", "sinelon");
   } else if (inputString == "rainbow") {
     currentPatternNumber = 1;
 
@@ -128,7 +128,7 @@ void led_animation_msg(String inputString) {
     led_animation.enabled = true;
     led_base_hue.enabled = true;
     
-    mqtt_publish("lights/fastled", "rainbow");
+    mqtt.publish("lights/fastled", "rainbow");
   } else if (inputString == "confetti") {
     currentPatternNumber = 2;
     
@@ -138,7 +138,7 @@ void led_animation_msg(String inputString) {
     led_animation.enabled = true;
     led_base_hue.enabled = true;
 
-    mqtt_publish("lights/fastled", "confetti");
+    mqtt.publish("lights/fastled", "confetti");
   }
 }
 
