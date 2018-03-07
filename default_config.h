@@ -7,8 +7,12 @@
  *     
  * ID and services will be added in file MQTT.ino
  */
-#define MQTT_PREFIX           "dersimn"
-#define MQTT_SERVER           "10.1.1.50"
+#define WIFI_SSID						""
+#define WIFI_PASS						""
+#define MQTT_PREFIX						"dersimn"
+#define MQTT_SERVER						"10.1.1.50"
+
+#define USE_WIFI_MANAGER				1
 
 #define FASTLED_ENABLE        			1
 #define MOSFETLED_ENABLE      			1

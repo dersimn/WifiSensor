@@ -1,3 +1,5 @@
+#if USE_WIFI_MANAGER
+
 Thread wifiThread = Thread();
 
 void setup_WiFi() {
@@ -32,3 +34,4 @@ void enteredConfigModeCallback(WiFiManager* myWiFiManager) {
   LogWiFi.info(String("IP: ") + WiFi.softAPIP().toString() );
 }
 
+#endif
