@@ -4,13 +4,13 @@ Thread wifiThread = Thread();
 
 void setup_WiFi() {
   WiFi.softAPdisconnect(true);
-  Log.info(String("Connecting to Wifi SSID ") + ssid);
-  WiFi.begin(ssid, password);
+  LogWiFi.info(s+"Connecting to Wifi SSID: "+WIFI_SSID);
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
 
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
   }
-  Log.info(String("Connected with IP: ") + WiFi.localIP().toString() );
+  LogWiFi.info(s+"Connected with IP: "+WiFi.localIP().toString() );
 
   wifiThread.onRun(wifiFunction);
   wifiThread.setInterval(60 * 1000);

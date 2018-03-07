@@ -11,9 +11,11 @@
 #include <ThreadController.h>
 #include <ThreadRunOnce.h>      // https://github.com/dersimn/ArduinoThreadRunOnce
 
+#if USE_WIFI_MANAGER
 #include <WiFiManager.h>        // https://github.com/tzapu/WiFiManager
 #include <DNSServer.h>
 #include <ESP8266WebServer.h>
+#endif
 
 #include <PubSubClient.h>       // https://github.com/knolleary/pubsubclient
 

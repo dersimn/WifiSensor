@@ -12,7 +12,7 @@
 #define MQTT_PREFIX						"dersimn"
 #define MQTT_SERVER						"10.1.1.50"
 
-#define USE_WIFI_MANAGER				1
+#define USE_WIFI_MANAGER				0
 
 #define FASTLED_ENABLE        			1
 #define MOSFETLED_ENABLE      			1
