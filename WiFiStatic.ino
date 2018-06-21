@@ -1,5 +1,3 @@
-#if !USE_WIFI_MANAGER
-
 Thread wifiThread = Thread();
 
 void setup_WiFi() {
@@ -22,5 +20,3 @@ void wifiFunction() {
     LogWiFi.warn("Connection lost");
   }
 }
-
-#endif

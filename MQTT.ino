@@ -1,9 +1,6 @@
 Thread reconnectThread = Thread();
 
 void setup_MQTT() {
-  mqtt.setSubscribePrefix(s+MQTT_PREFIX+"/set/"+BOARD_ID+"/"); 
-  mqtt.setPublishPrefix(s+MQTT_PREFIX+"/status/"+BOARD_ID+"/"); 
-
   if (WiFi.status() == WL_CONNECTED) {
     mqtt_reconnect();
   }
@@ -11,10 +8,6 @@ void setup_MQTT() {
   reconnectThread.onRun(reconnectFunction);
   reconnectThread.setInterval(60 * 1000);
   threadControl.add(&reconnectThread);
-}
-
-void loop_MQTT() {
-  mqttClient.loop();
 }
 
 void reconnectFunction() {
@@ -31,10 +24,12 @@ void reconnectFunction() {
 void mqtt_reconnect() {
   LogMqtt.info(s+ "Attempting MQTT connection to " + MQTT_SERVER );
   
-  if ( mqttClient.connect( BOARD_ID_CHAR ) ) {
+  if ( mqtt.connect(BOARD_ID,s+MQTT_PREFIX+"/maintenance/"+BOARD_ID+"/online", 0, true, "false") ) {
     LogMqtt.info(s+ "Connected with ID: " + BOARD_ID );
+    mqtt.publish(s+MQTT_PREFIX+"/maintenance/"+BOARD_ID+"/online", "true", true);
   } else {
     LogMqtt.error(s+ "Connection failed with rc=" + mqttClient.state() );
     delay(5000);
   }
 }
+

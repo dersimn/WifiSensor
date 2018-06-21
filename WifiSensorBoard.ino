@@ -5,17 +5,10 @@
 #include <NamedLog.h>
 #include <LogHandler.h>
 #include <LogSerialModule.h>
-#include <LogMqttModule.h>
 
 #include <Thread.h>             // https://github.com/ivanseidel/ArduinoThread
 #include <ThreadController.h>
 #include <ThreadRunOnce.h>      // https://github.com/dersimn/ArduinoThreadRunOnce
-
-#if USE_WIFI_MANAGER
-#include <WiFiManager.h>        // https://github.com/tzapu/WiFiManager
-#include <DNSServer.h>
-#include <ESP8266WebServer.h>
-#endif
 
 #include <PubSubClient.h>       // https://github.com/knolleary/pubsubclient
 #include <PubSubClientTools.h>  // https://github.com/dersimn/ArduinoPubSubClientTools
@@ -23,11 +16,6 @@
 #include <ArduinoOTA.h>
 #include <ESP8266mDNS.h>
 #include <WiFiUdp.h>
-
-#include <FastLED.h>            // https://github.com/FastLED/FastLED
-#include <NeoPixelBus.h>        // https://github.com/Makuna/NeoPixelBus
-                                // Usage of both libraries because of flicekring issue, see: 
-                                // https://github.com/FastLED/FastLED/issues/306
 
 #include <OneWire.h>
 #include <DallasTemperature.h>  // https://github.com/milesburton/Arduino-Temperature-Control-Library
@@ -42,8 +30,6 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_TSL2561_U.h> // https://github.com/adafruit/Adafruit_TSL2561
 
-#include <I2CSoilMoistureSensor.h> // https://github.com/Apollon77/I2CSoilMoistureSensor
-
 // --------------------------------------------------------
 
 LogHandler logHandler;
@@ -55,7 +41,6 @@ NamedLog   LogMqtt(logHandler, "MQTT");
 NamedLog   LogDallas(logHandler, "Dallas");
 NamedLog   LogBMP(logHandler, "BMP");
 NamedLog   LogTSL2561(logHandler, "TSL2561");
-NamedLog   LogChirp(logHandler, "Chirp");
 
 ThreadController threadControl = ThreadController();
 
@@ -82,14 +67,10 @@ void setup() {
   setup_MQTT();
   ArduinoOTA.setHostname(BOARD_ID_CHAR);
   ArduinoOTA.begin();
-  
-  setup_FastLED();
-  setup_mosfetLED();
-  
+
   setup_Sensor_Dallas();
   setup_Sensor_BMP();
   setup_Sensor_TSL2561();
-  setup_Sensor_Chirp();
   
   setup_Maintanance();
 
@@ -103,10 +84,9 @@ void loop() {
     Log.info("Entering loop()");
   }
 
-  loop_MQTT();
-  ArduinoOTA.handle();
-
   loop_Sensor_DHT();
 
+  mqttClient.loop();
+  ArduinoOTA.handle();
   threadControl.run();
 }

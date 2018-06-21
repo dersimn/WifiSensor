@@ -13,19 +13,14 @@
 #define MQTT_PREFIX						"dersimn"
 #define MQTT_SERVER						"10.1.1.50"
 
-#define USE_WIFI_MANAGER				0
-
-#define FASTLED_ENABLE        			1
-#define MOSFETLED_ENABLE      			1
 #define SENSOR_DHT_ENABLE     			1
-#define SENSOR_DALLAS_ENABLE  			1
-#define SENSOR_BMP_ENABLE     			1
-#define SENSOR_TSL2561_ENABLE 			1
-#define SENSOR_CHIRP_ENABLE   			1
-#define SENSOR_SINGLE_DALLAS_ENABLE		0
+#define SENSOR_DALLAS_ENABLE  			0
+#define SENSOR_BMP_ENABLE     			0
+#define SENSOR_TSL2561_ENABLE 			0
+#define SENSOR_SINGLE_DALLAS_ENABLE		1
 
 // Maintenance
-#define MAINTENANCE_UPTIME_INTERVAL     10
+#define MAINTENANCE_UPTIME_INTERVAL     60
 #define MAINTENANCE_INFO_INTERVAL       60
 
 // Sensor_DHT
@@ -37,7 +32,7 @@
 #define DS_ONE_WIRE_BUS       D3
 #define DS_MAX_DEVICES        5
 #define DS_INTERVAL           10000
-#define DS_PRECISION          12
+#define DS_PRECISION          10
 
 // Sensor_BMP
 #define BMP_INTERVAL          10000
@@ -45,12 +40,3 @@
 // Sensor_TSL2561
 #define TSL2561_INTERVAL      10000
 
-// FastLED
-#define FASTLED_NUM_LEDS      16
-#define FASTLED_FPS           120
-
-// mosfetLED
-#define MOSFETLED_PIN         D5
-
-// Sensor_Chirp
-#define CHIRP_INTERVAL        10000

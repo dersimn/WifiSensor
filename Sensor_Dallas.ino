@@ -80,6 +80,8 @@ String stringPrintAddress(DeviceAddress deviceAddress) {
 }
 
 #else
-void setup_Sensor_Dallas() {}
-void loop_Sensor_Dallas() {}
+  #if !SENSOR_SINGLE_DALLAS_ENABLE
+    void setup_Sensor_Dallas() {}
+    void loop_Sensor_Dallas() {}
+  #endif
 #endif

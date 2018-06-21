@@ -7,8 +7,8 @@ void loop_Sensor_DHT() {
   float humidity;
   if( measure_environment( &temperature, &humidity ) == true )
   {
-    mqtt.publish("temperature/dht", String(temperature, 1));
-    mqtt.publish("humidity/dht"   , String(humidity, 1));
+    mqtt.publish(s+MQTT_PREFIX+"/status/"+BOARD_ID+"/temperature/dht", String(temperature, 1));
+    mqtt.publish(s+MQTT_PREFIX+"/status/"+BOARD_ID+"/humidity/dht", String(humidity, 1));
   }  
 }
 
